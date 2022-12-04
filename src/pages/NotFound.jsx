@@ -10,13 +10,13 @@ export default function NotFound() {
       </span>
       <div className=''>
         <button
-          className='p-2 mr-3 duration-300 ease-in-out transform rounded-lg bg-lightGray hover:bg-red-50'
+          className='p-2 mr-3 duration-300 ease-in-out transform rounded-lg bg-lightGray hover:bg-purple-100'
           onClick={() => navigate('/')}
         >
           홈으로 가기
         </button>
         <button
-          className='p-2 duration-300 ease-in-out transform rounded-lg bg-lightGray hover:bg-red-50'
+          className='p-2 duration-300 ease-in-out transform rounded-lg bg-lightGray hover:bg-purple-100'
           onClick={() => navigate(-1)}
         >
           이전 페이지로 가기
