@@ -4,19 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { auth, user, handleUser } = useAuth();
+  const { auth } = useAuth();
   const onLogin = (e) => {
     console.log(e.currentTarget.textContent);
     // 로그인
-    auth
-      .login(e.currentTarget.textContent)
-      .then((result) => {
-        const userInfo = result.user;
-        console.log(userInfo);
-        handleUser(userInfo);
-        navigate('/');
-      })
-      .catch(console.error);
+    auth.login(e.currentTarget.textContent).catch(console.error);
+    navigate('/');
   };
 
   return (

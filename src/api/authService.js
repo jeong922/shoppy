@@ -11,16 +11,16 @@ export default class AuthService {
     this.googleAuthProvider = new GoogleAuthProvider();
     this.githubAuthProvider = new GithubAuthProvider();
   }
-  async login(provider) {
+  login(provider) {
     const authProvider = this.getProvider(provider);
     return signInWithPopup(this.firebaseAuth, authProvider);
   }
 
-  async logout() {
+  logout() {
     this.firebaseAuth.signOut();
   }
 
-  async onAuthChange(onUserChanged) {
+  onAuthChange(onUserChanged) {
     this.firebaseAuth.onAuthStateChanged((user) => {
       onUserChanged(user);
     });

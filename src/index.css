@@ -18,5 +18,5 @@ code {
 }
 
 #root {
-  @apply w-full max-w-[1920px];
+  @apply w-full h-screen max-w-[1920px];
 }

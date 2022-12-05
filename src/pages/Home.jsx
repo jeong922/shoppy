@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function Home() {
   return (
-    <main>
-      <h1>Home</h1>
+    <main className='h-full'>
+      {/* <div className="w-full h-2/6 bg-cover bg-[url('../public/img/bannerImg.jpg')]"></div> */}
     </main>
   );
 }
