@@ -4,12 +4,15 @@ import {
   signInWithPopup,
   GithubAuthProvider,
 } from 'firebase/auth';
+import { getDatabase, ref, child, get } from 'firebase/database';
+import { firebaseApp } from './firebase';
 
 export default class AuthService {
   constructor() {
     this.firebaseAuth = getAuth();
     this.googleAuthProvider = new GoogleAuthProvider();
     this.githubAuthProvider = new GithubAuthProvider();
+    this.database = getDatabase(firebaseApp);
   }
   login(provider) {
     const authProvider = this.getProvider(provider);
@@ -21,8 +24,24 @@ export default class AuthService {
   }
 
   onAuthChange(onUserChanged) {
-    this.firebaseAuth.onAuthStateChanged((user) => {
-      onUserChanged(user);
+    this.firebaseAuth.onAuthStateChanged(async (user) => {
+      const updatedUser = user ? await this.adminUser(user) : null;
+      onUserChanged(updatedUser);
+    });
+  }
+
+  async adminUser(user) {
+    return get(ref(this.database, 'admins')).then((snapshot) => {
+      if (snapshot.exists()) {
+        const admins = snapshot.val();
+        // console.log(admins);
+        const isAdmin = admins.includes(user.uid);
+        return {
+          ...user,
+          isAdmin,
+        };
+      }
+      return user;
     });
   }
 

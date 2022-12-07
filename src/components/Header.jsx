@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineShopping } from 'react-icons/ai';
 import { CgShoppingBag } from 'react-icons/cg';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,21 +9,20 @@ export default function Header() {
   const navigate = useNavigate();
   const { auth, user, handleUser } = useAuth();
   const handleLogout = () => {
-    auth.logout().catch(console.error);
+    auth.logout();
   };
-
   useEffect(() => {
     auth.onAuthChange((userInfo) => {
+      console.log(userInfo);
       handleUser(userInfo);
     });
-  });
+  }, []);
 
-  console.log(user);
   return (
     <header className='fixed flex justify-between w-full p-4 px-6 border-b'>
       <Link to='/' className='flex items-center text-2xl cursor-pointer'>
         <CgShoppingBag className='mr-2 text-mainColor' />
-        <span>J Shop</span>
+        <span className='font-semibold'>J Shop</span>
       </Link>
 
       <div className='flex items-center'>
@@ -42,11 +41,14 @@ export default function Header() {
         )}
 
         {!user ? (
-          <button onClick={() => navigate('login')} className='px-2 py-1 '>
+          <button
+            onClick={() => navigate('login')}
+            className='px-2 py-1 font-semibold'
+          >
             로그인
           </button>
         ) : (
-          <button onClick={handleLogout} className='px-2 py-1 '>
+          <button onClick={handleLogout} className='px-2 py-1 font-semibold'>
             로그아웃
           </button>
         )}

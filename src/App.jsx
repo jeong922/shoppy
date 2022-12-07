@@ -7,7 +7,9 @@ function App() {
     <>
       <AuthProvider>
         <Header />
-        <Outlet />
+        <div className='h-full pt-20'>
+          <Outlet />
+        </div>
       </AuthProvider>
     </>
   );
