@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AiOutlineShopping } from 'react-icons/ai';
 import { CgShoppingBag } from 'react-icons/cg';
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ export default function Header() {
   const handleShowUserMenu = () => setShow(true);
   const handleHiddenUserMenu = () => setShow(false);
   return (
-    <header className='fixed flex justify-between w-full p-4 px-6 border-b'>
+    <header className='fixed flex justify-between w-full p-4 px-6 bg-white border-b'>
       <Link to='/' className='flex items-center text-2xl cursor-pointer'>
         <CgShoppingBag className='mr-2 text-mainColor' />
         <span className='font-semibold'>J Shop</span>

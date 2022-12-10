@@ -4,7 +4,7 @@ import {
   signInWithPopup,
   GithubAuthProvider,
 } from 'firebase/auth';
-import { getDatabase, ref, child, get } from 'firebase/database';
+import { getDatabase, ref, get } from 'firebase/database';
 import { firebaseApp } from './firebase';
 
 export default class AuthService {
