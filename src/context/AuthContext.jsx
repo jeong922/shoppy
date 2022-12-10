@@ -1,17 +1,19 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import AuthService from '../api/authService';
 import { firebaseApp } from '../api/firebase';
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 const auth = new AuthService(firebaseApp);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
-  const handleUser = (userInfo) => {
-    setUser(userInfo);
-  };
+  useEffect(() => {
+    auth.onAuthChange((userInfo) => {
+      setUser(userInfo);
+    });
+  }, []);
   return (
-    <AuthContext.Provider value={{ auth, user, handleUser }}>
+    <AuthContext.Provider value={{ auth, user }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,8 +6,6 @@ export default function Login() {
   const navigate = useNavigate();
   const { auth } = useAuth();
   const onLogin = (e) => {
-    console.log(e.currentTarget.name);
-    // 로그인
     auth.login(e.currentTarget.name).catch(console.error);
     navigate('/');
   };

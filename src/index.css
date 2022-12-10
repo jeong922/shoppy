@@ -19,4 +19,5 @@ code {
 
 #root {
   @apply w-full h-screen max-w-[1920px];
+  accent-color: #c084fc;
 }
