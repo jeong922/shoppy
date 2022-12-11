@@ -12,25 +12,21 @@ export default function AddProduct() {
   const [product, setProduct] = useState({});
   const [option, setOption] = useState([]);
   const [file, setFile] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState('');
   const [scrollY, setScrollY] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsUploading(true);
     if (option.length) {
-      imageUploader
-        .upload(file)
-        .then((data) => {
-          const url = data.url;
-          repository.addNewProduct(product, url).then(() => {
-            setSuccess('제품이 등록 되었습니다.');
-            setTimeout(() => {
-              setSuccess(null);
-            }, 3000);
-          });
-        })
-        .finally(() => setIsUploading(false));
+      imageUploader.upload(file).then((data) => {
+        const url = data.url;
+        repository.addNewProduct(product, url).then(() => {
+          setSuccess('제품이 등록 되었습니다.');
+          setTimeout(() => {
+            setSuccess(null);
+            navigate(-1);
+          }, 3000);
+        });
+      });
     }
   };
 
@@ -72,7 +68,6 @@ export default function AddProduct() {
       window.removeEventListener('scroll', onScroll);
     };
   }, []);
-  console.log(scrollY);
 
   useEffect(() => {
     if (success) {
@@ -90,6 +85,8 @@ export default function AddProduct() {
     }
   }, [scrollY, success]);
 
+  console.log(file.name);
+
   return (
     <div className='flex flex-col items-center justify-center max-w-3xl px-3 pb-10 mx-auto mt-9'>
       <h2 className='mb-3 text-2xl text-center'>새로운 제품 등록</h2>
@@ -101,8 +98,18 @@ export default function AddProduct() {
         />
       )}
       <form onSubmit={handleSubmit} className='flex flex-col w-full '>
+        <div className='mb-3'>
+          <label
+            htmlFor='file'
+            className='p-2 px-3 text-sm text-white cursor-pointer bg-mainColor hover:opacity-70'
+          >
+            이미지 선택
+          </label>
+          {file && <span className='ml-2 text-sm'>{file.name}</span>}
+        </div>
         <input
-          className='mb-3'
+          id='file'
+          className='hidden mb-3'
           type='file'
           accept='image/*'
           name='file'
