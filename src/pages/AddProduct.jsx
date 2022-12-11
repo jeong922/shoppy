@@ -12,14 +12,25 @@ export default function AddProduct() {
   const [product, setProduct] = useState({});
   const [option, setOption] = useState([]);
   const [file, setFile] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [success, setSuccess] = useState('');
+  const [scrollY, setScrollY] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsUploading(true);
     if (option.length) {
-      imageUploader.upload(file).then((data) => {
-        const url = data.url;
-        repository.addNewProduct(product, url);
-      });
-      navigate(-1);
+      imageUploader
+        .upload(file)
+        .then((data) => {
+          const url = data.url;
+          repository.addNewProduct(product, url).then(() => {
+            setSuccess('제품이 등록 되었습니다.');
+            setTimeout(() => {
+              setSuccess(null);
+            }, 3000);
+          });
+        })
+        .finally(() => setIsUploading(false));
     }
   };
 
@@ -44,12 +55,40 @@ export default function AddProduct() {
     }));
   };
 
+  const onScroll = () => {
+    setScrollY(window.scrollY);
+  };
+
   useEffect(() => {
     setProduct((product) => ({
       ...product,
       option,
     }));
   }, [option]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+  console.log(scrollY);
+
+  useEffect(() => {
+    if (success) {
+      document.body.style.cssText = `
+    position: fixed;
+    top: -${scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+
+      return () => {
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = '';
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      };
+    }
+  }, [scrollY, success]);
 
   return (
     <div className='flex flex-col items-center justify-center max-w-3xl px-3 pb-10 mx-auto mt-9'>
@@ -126,6 +165,13 @@ export default function AddProduct() {
           상품 추가
         </button>
       </form>
+      {success && (
+        <div className='fixed top-0 flex items-center justify-center w-full h-full bg-modal_bg'>
+          <div className='z-50 p-5 m-3 text-lg rounded-md bg-neutral-50'>
+            <span>{success}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

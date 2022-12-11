@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         mainColor: '#c084fc',
+        modal_bg: '#000000b3',
       },
     },
   },
