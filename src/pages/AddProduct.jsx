@@ -12,7 +12,7 @@ const repository = new Repository();
 export default function AddProduct() {
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
-  const [option, setOption] = useState([]);
+  const [options, setOptions] = useState([]);
   const [file, setFile] = useState('');
   const [success, setSuccess] = useState('');
   const [scrollY, setScrollY] = useState(0);
@@ -21,7 +21,7 @@ export default function AddProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (option.length) {
+    if (options.length) {
       imageUploader.upload(file).then((data) => {
         const url = data.url;
         repository.addNewProduct(product, url).then(() => {
@@ -37,14 +37,13 @@ export default function AddProduct() {
 
   const handleOption = (value, isCheck) => {
     if (isCheck) {
-      setOption([...option, value]);
+      setOptions([...options, value]);
     } else {
-      setOption(option.filter((item) => item !== value));
+      setOptions(options.filter((item) => item !== value));
     }
   };
 
   const handleTextOption = (value, isCheck) => {
-    console.log('isCheck', isCheck);
     if (isCheck && value === '직접 입력') {
       setIsText(true);
     } else {
@@ -57,18 +56,18 @@ export default function AddProduct() {
   };
 
   const addTextOption = () => {
-    const value = option.join(',');
+    const value = options.join(',');
     if (optionText === '') {
-      setOption([]);
+      setOptions([]);
       return;
     }
 
     if (value !== optionText) {
-      setOption([...optionText.split(',')]);
+      setOptions([...optionText.split(',')]);
       return;
     }
 
-    setOption([...option, ...optionText.split(',')]);
+    setOptions([...options, ...optionText.split(',')]);
   };
 
   const handleChange = (e) => {
@@ -77,6 +76,7 @@ export default function AddProduct() {
       setFile(files && files[0]);
       return;
     }
+
     setProduct((product) => ({
       ...product,
       [name]: value,
@@ -90,9 +90,9 @@ export default function AddProduct() {
   useEffect(() => {
     setProduct((product) => ({
       ...product,
-      option,
+      options,
     }));
-  }, [option]);
+  }, [options]);
 
   useEffect(() => {
     window.addEventListener('scroll', onScroll);
@@ -116,7 +116,7 @@ export default function AddProduct() {
       };
     }
   }, [scrollY, success]);
-  console.log(istext);
+
   return (
     <div className='flex flex-col items-center justify-center max-w-3xl px-3 pb-10 mx-auto mt-9'>
       <Title text={'새로운 제품 등록'} />
@@ -212,7 +212,7 @@ export default function AddProduct() {
             </button>
           </div>
         </div>
-        {!option.length && (
+        {!options.length && (
           <span className='mb-2 text-sm text-red-600'>
             ❗사이즈 옵션을 선택해주세요.
           </span>

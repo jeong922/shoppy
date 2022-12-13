@@ -13,7 +13,7 @@ export default function Header() {
   const handleLogout = () => {
     auth.logout();
   };
-  const handleShowUserMenu = () => setShow(true);
+  // const handleShowUserMenu = () => setShow(true);
   const handleHiddenUserMenu = () => setShow(false);
   const handleUserMenu = () => (show ? setShow(false) : setShow(true));
   return (

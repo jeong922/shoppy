@@ -16,7 +16,7 @@ export default class Repository {
       price: parseInt(product.price),
       imageURL,
       description: product.description,
-      option: product.option,
+      options: product.options,
     });
   }
 
