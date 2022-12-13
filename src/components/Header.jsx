@@ -16,7 +16,7 @@ export default function Header() {
   const handleShowUserMenu = () => setShow(true);
   const handleHiddenUserMenu = () => setShow(false);
   return (
-    <header className='fixed flex justify-between w-full p-4 px-6 bg-white border-b'>
+    <header className='fixed flex justify-between w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200'>
       <Link to='/' className='flex items-center text-2xl cursor-pointer'>
         <CgShoppingBag className='mr-2 text-mainColor' />
         <span className='font-semibold'>J Shop</span>

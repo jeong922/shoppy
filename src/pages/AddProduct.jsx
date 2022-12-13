@@ -3,6 +3,8 @@ import Repository from '../api/repository';
 import { ImageUploader } from '../api/uploader';
 import Checkbox from '../components/ui/Checkbox';
 import { useNavigate } from 'react-router-dom';
+import Title from '../components/ui/Title';
+import Button from '../components/ui/Button';
 
 const imageUploader = new ImageUploader();
 const repository = new Repository();
@@ -85,11 +87,9 @@ export default function AddProduct() {
     }
   }, [scrollY, success]);
 
-  console.log(file.name);
-
   return (
     <div className='flex flex-col items-center justify-center max-w-3xl px-3 pb-10 mx-auto mt-9'>
-      <h2 className='mb-3 text-2xl text-center'>새로운 제품 등록</h2>
+      <Title text={'새로운 제품 등록'} />
       {file && (
         <img
           className='w-2/4 mb-2'
@@ -168,9 +168,9 @@ export default function AddProduct() {
             ❗사이즈 옵션을 선택해주세요.
           </span>
         )}
-        <button className='p-2 text-white bg-mainColor hover:opacity-70'>
-          상품 추가
-        </button>
+        <div className='text-center text-white bg-mainColor'>
+          <Button text={'상품 추가'} />
+        </div>
       </form>
       {success && (
         <div className='fixed top-0 flex items-center justify-center w-full h-full bg-modal_bg'>
