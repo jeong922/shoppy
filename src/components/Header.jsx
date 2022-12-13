@@ -15,8 +15,12 @@ export default function Header() {
   };
   const handleShowUserMenu = () => setShow(true);
   const handleHiddenUserMenu = () => setShow(false);
+  const handleUserMenu = () => (show ? setShow(false) : setShow(true));
   return (
-    <header className='fixed flex justify-between w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200'>
+    <header
+      onMouseLeave={handleHiddenUserMenu}
+      className='fixed flex justify-between w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200'
+    >
       <Link to='/' className='flex items-center text-2xl cursor-pointer'>
         <CgShoppingBag className='mr-2 text-mainColor' />
         <span className='font-semibold'>J Shop</span>
@@ -35,19 +39,15 @@ export default function Header() {
         )}
         {user && (
           <div
-            onMouseEnter={handleShowUserMenu}
             className={`${
               user.isAdmin && 'cursor-pointer'
             } w-8 h-8 shrink-0 mx-2`}
+            onClick={handleUserMenu}
           >
             <Avatar user={user} />
             {user && user.isAdmin && show && (
               <Link to='products/add'>
-                <div
-                  onClick={handleHiddenUserMenu}
-                  onMouseLeave={handleHiddenUserMenu}
-                  className='w-20 p-2 mt-2 text-sm text-center rounded-lg cursor-pointer bg-neutral-100 hover:bg-neutral-50'
-                >
+                <div className='w-20 p-2 mt-2 text-sm text-center rounded-lg cursor-pointer bg-neutral-100 hover:bg-neutral-50'>
                   <span>상품 등록</span>
                 </div>
               </Link>

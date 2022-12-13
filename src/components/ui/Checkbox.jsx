@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Checkbox({ text, onValue }) {
+export default function Checkbox({ text, onValue, state }) {
   const handleChange = (e) => {
     onValue(text, e.target.checked);
   };
@@ -9,7 +9,13 @@ export default function Checkbox({ text, onValue }) {
       <label className='mr-2' htmlFor={text}>
         {text}
       </label>
-      <input onChange={handleChange} id={text} type='checkbox' value={text} />
+      <input
+        onChange={handleChange}
+        id={text}
+        type='checkbox'
+        value={text}
+        disabled={state}
+      />
     </div>
   );
 }

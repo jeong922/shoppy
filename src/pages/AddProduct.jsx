@@ -16,6 +16,9 @@ export default function AddProduct() {
   const [file, setFile] = useState('');
   const [success, setSuccess] = useState('');
   const [scrollY, setScrollY] = useState(0);
+  const [optionText, setOptionText] = useState('');
+  const [istext, setIsText] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (option.length) {
@@ -40,13 +43,40 @@ export default function AddProduct() {
     }
   };
 
+  const handleTextOption = (value, isCheck) => {
+    console.log('isCheck', isCheck);
+    if (isCheck && value === '직접 입력') {
+      setIsText(true);
+    } else {
+      setIsText(false);
+    }
+  };
+
+  const handleTextOptionChange = (e) => {
+    setOptionText(e.target.value);
+  };
+
+  const addTextOption = () => {
+    const value = option.join(',');
+    if (optionText === '') {
+      setOption([]);
+      return;
+    }
+
+    if (value !== optionText) {
+      setOption([...optionText.split(',')]);
+      return;
+    }
+
+    setOption([...option, ...optionText.split(',')]);
+  };
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'file') {
       setFile(files && files[0]);
       return;
     }
-
     setProduct((product) => ({
       ...product,
       [name]: value,
@@ -86,7 +116,7 @@ export default function AddProduct() {
       };
     }
   }, [scrollY, success]);
-
+  console.log(istext);
   return (
     <div className='flex flex-col items-center justify-center max-w-3xl px-3 pb-10 mx-auto mt-9'>
       <Title text={'새로운 제품 등록'} />
@@ -153,14 +183,33 @@ export default function AddProduct() {
           required
           onChange={handleChange}
         />
-        <div className='flex mb-3'>
-          <span className='mr-3 font-semibold'>사이즈 옵션</span>
-          <div className='flex'>
-            <Checkbox text={'F'} onValue={handleOption} />
-            <Checkbox text={'S'} onValue={handleOption} />
-            <Checkbox text={'M'} onValue={handleOption} />
-            <Checkbox text={'L'} onValue={handleOption} />
-            <Checkbox text={'XL'} onValue={handleOption} />
+        <div className='flex flex-col mb-3'>
+          <div className='flex mb-2'>
+            <span className='mr-3 font-semibold'>사이즈 옵션</span>
+            <Checkbox text={'F'} onValue={handleOption} state={istext} />
+            <Checkbox text={'S'} onValue={handleOption} state={istext} />
+            <Checkbox text={'M'} onValue={handleOption} state={istext} />
+            <Checkbox text={'L'} onValue={handleOption} state={istext} />
+            <Checkbox text={'XL'} onValue={handleOption} state={istext} />
+            <Checkbox text={'2XL'} onValue={handleOption} state={istext} />
+            <Checkbox text={'직접 입력'} onValue={handleTextOption} />
+          </div>
+          <div>
+            <input
+              disabled={!istext}
+              name='inputOption'
+              onChange={handleTextOptionChange}
+              className='w-3/4 px-2 py-1 border rounded-md border-neutral-200 placeholder:text-sm'
+              type='text'
+              placeholder='원하는 사이즈 옵션이 없다면 ,(쉼표)로 구분하여 입력해 주세요.'
+            />
+            <button
+              type='button'
+              onClick={addTextOption}
+              className='px-2 py-1 ml-2 text-sm text-white bg-mainColor'
+            >
+              사이즈 등록
+            </button>
           </div>
         </div>
         {!option.length && (
@@ -168,7 +217,7 @@ export default function AddProduct() {
             ❗사이즈 옵션을 선택해주세요.
           </span>
         )}
-        <div className='text-center text-white bg-mainColor'>
+        <div className='text-center text-white bg-mainColor hover:opacity-70'>
           <Button text={'상품 추가'} />
         </div>
       </form>
