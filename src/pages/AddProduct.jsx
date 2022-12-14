@@ -131,7 +131,7 @@ export default function AddProduct() {
         <div className='mb-3'>
           <label
             htmlFor='file'
-            className='p-2 px-3 text-sm text-white cursor-pointer bg-mainColor hover:opacity-70'
+            className='p-2 px-3 text-sm text-white bg-black cursor-pointer hover:opacity-70'
           >
             이미지 선택
           </label>
@@ -206,7 +206,7 @@ export default function AddProduct() {
             <button
               type='button'
               onClick={addTextOption}
-              className='px-2 py-1 ml-2 text-sm text-white bg-mainColor'
+              className='px-2 py-1 ml-2 text-sm text-white bg-black'
             >
               사이즈 등록
             </button>
@@ -217,7 +217,7 @@ export default function AddProduct() {
             ❗사이즈 옵션을 선택해주세요.
           </span>
         )}
-        <div className='text-center text-white bg-mainColor hover:opacity-70'>
+        <div className='text-center text-white bg-black hover:opacity-70'>
           <Button text={'상품 추가'} />
         </div>
       </form>

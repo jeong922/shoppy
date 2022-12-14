@@ -24,7 +24,7 @@ export default function Cart() {
         <div className='mr-2 border-2 border-neutral-200 hover:opacity-70'>
           <Button text={'쇼핑계속하기'} onClick={() => navigate(-1)} />
         </div>
-        <div className='flex text-white bg-mainColor hover:opacity-70'>
+        <div className='flex text-white bg-black hover:opacity-70'>
           <Button text={'전체상품주문'} />
         </div>
       </div>

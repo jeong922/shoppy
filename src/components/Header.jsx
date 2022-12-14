@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <header
       onMouseLeave={handleHiddenUserMenu}
-      className='fixed flex justify-between w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200'
+      className='fixed flex justify-between w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200 z-20'
     >
       <Link to='/' className='flex items-center text-2xl cursor-pointer'>
         <CgShoppingBag className='mr-2 text-mainColor' />
