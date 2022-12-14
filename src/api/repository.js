@@ -28,6 +28,7 @@ export default class Repository {
     });
     return () => off(starCountRef);
   }
+
   // TODO:
-  // 상품 수정 삭제 기능
+  // 관리자 모드에서 상품 수정 삭제 기능
 }

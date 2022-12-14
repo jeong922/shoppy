@@ -19,12 +19,21 @@ export default function Header() {
   return (
     <header
       onMouseLeave={handleHiddenUserMenu}
-      className='fixed flex justify-between w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200 z-20'
+      className='fixed flex justify-between items-center w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200 z-20'
     >
-      <Link to='/' className='flex items-center text-2xl cursor-pointer'>
+      <Link
+        to='/'
+        className='flex items-center text-2xl cursor-pointer shrink-0'
+      >
         <CgShoppingBag className='mr-2 text-mainColor' />
         <span className='font-semibold'>J Shop</span>
       </Link>
+
+      <div className='hidden w-2/3 px-4 md:flex'>
+        <span className='mr-3'>WOMEN</span>
+        <span className='mr-3'>MEN</span>
+        <span className='mr-3'>ACC&SHOES</span>
+      </div>
 
       <div className='flex items-center'>
         {user && (
@@ -56,9 +65,13 @@ export default function Header() {
         )}
 
         {!user ? (
-          <Button text={'로그인'} onClick={() => navigate('login')} />
+          <div className='shrink-0'>
+            <Button text={'로그인'} onClick={() => navigate('login')} />
+          </div>
         ) : (
-          <Button text={'로그아웃'} onClick={handleLogout} />
+          <div className='shrink-0'>
+            <Button text={'로그아웃'} onClick={handleLogout} />
+          </div>
         )}
       </div>
     </header>

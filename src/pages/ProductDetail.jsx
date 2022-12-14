@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { replacePrice } from '../util/data';
+import { IoIosArrowForward } from 'react-icons/io';
 
 export default function ProductDetail() {
   const location = useLocation();
@@ -23,8 +24,13 @@ export default function ProductDetail() {
           style={{ backgroundImage: `url(${image || imageURL})` }}
         ></div>
       </section>
-      <section className='w-full px-2 md:w-1/2'>
+      <section className='flex flex-col w-full px-2 md:w-1/2'>
         <h4 className='mb-3 text-3xl font-semibold'>{title}</h4>
+        <div className='flex items-center mb-3 text-neutral-500'>
+          <span className='text-sm'>{category}</span>
+          <IoIosArrowForward />
+        </div>
+
         <span className='text-lg'>{replacePrice(price)}원</span>
         <p className='my-3 text-neutral-500'>{description}</p>
         <div className='flex flex-col py-3 border-y border-neutral-200'>
@@ -36,7 +42,7 @@ export default function ProductDetail() {
                 className={`${
                   selectedOption === option
                     ? 'border-2 border-mainColor'
-                    : 'border border-neutral-200'
+                    : 'border-2 border-neutral-200'
                 } mb-2 mr-2 text-center w-14 shrink-0`}
               >
                 <input
@@ -58,7 +64,7 @@ export default function ProductDetail() {
           </ul>
         </div>
         <div className='mt-3'>
-          <div className='px-3 py-2 text-white bg-black'>
+          <div className='px-3 py-2 text-white bg-black hover:opacity-70'>
             <Button text={'장바구니'} />
           </div>
         </div>
