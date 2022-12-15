@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { AiOutlineShopping } from 'react-icons/ai';
 import { CgShoppingBag } from 'react-icons/cg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Avatar from './Avatar';
+import CartStatus from './CartStatus';
 import Button from './ui/Button';
 
 export default function Header() {
@@ -36,16 +36,7 @@ export default function Header() {
       </div>
 
       <div className='flex items-center'>
-        {user && (
-          <Link to='/cart' className='relative cursor-pointer'>
-            <AiOutlineShopping className='mr-2 text-4xl' />
-            <div className='absolute w-4 h-4 rounded-full bg-mainColor top-5 right-1'>
-              <span className='flex items-center justify-center text-xs text-white'>
-                0
-              </span>
-            </div>
-          </Link>
-        )}
+        {user && <CartStatus />}
         {user && (
           <div
             className={`${

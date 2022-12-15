@@ -9,12 +9,12 @@ function App() {
     <>
       <AuthProvider>
         <RepositoryProvider>
-          <Header />
-          <div className='h-full pt-20'>
-            <QueryClientProvider client={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            <Header />
+            <div className='h-full pt-20'>
               <Outlet />
-            </QueryClientProvider>
-          </div>
+            </div>
+          </QueryClientProvider>
         </RepositoryProvider>
       </AuthProvider>
     </>

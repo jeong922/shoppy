@@ -16,7 +16,7 @@ export default function Product({ product }) {
       className='cursor-pointer hover:opacity-70'
     >
       <div
-        className='bg-no-repeat bg-cover bg-center  h-[30rem]'
+        className='bg-no-repeat bg-cover bg-center h-[30rem]'
         style={{ backgroundImage: `url(${image || imageURL})` }}
       ></div>
       <div className='flex flex-col py-2'>

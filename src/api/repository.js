@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, onValue, off, get } from 'firebase/database';
+import { getDatabase, ref, set, get, remove } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
 import { firebaseApp } from './firebase';
 
@@ -20,7 +20,7 @@ export default class Repository {
     });
   }
 
-  getProducts() {
+  async getProducts() {
     return get(ref(this.db, `products`)).then((snapshot) => {
       if (snapshot.exists()) {
         return Object.values(snapshot.val());
@@ -29,15 +29,18 @@ export default class Repository {
     });
   }
 
-  // getItem(directory, onUpdate) {
-  //   const starCountRef = ref(this.db, `${directory}`);
-  //   onValue(starCountRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     data && onUpdate(data);
-  //   });
-  //   return () => off(starCountRef);
-  // }
+  async getCart(userId) {
+    return get(ref(this.db, `carts/${userId}`)).then((snapshot) => {
+      const data = snapshot.val() || {};
+      return Object.values(data);
+    });
+  }
 
-  // TODO:
-  // 관리자 모드에서 상품 수정 삭제 기능
+  async updateCart(userId, product) {
+    return set(ref(this.db, `carts/${userId}/${product.id}`), product);
+  }
+
+  async removeCartItem(userId, productId) {
+    return remove(ref(this.db, `carts/${userId}/${productId}`));
+  }
 }

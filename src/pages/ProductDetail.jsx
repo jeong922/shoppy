@@ -3,8 +3,12 @@ import { useLocation } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { replacePrice } from '../util/data';
 import { IoIosArrowForward } from 'react-icons/io';
+import { useAuth } from '../context/AuthContext';
+import { useRepository } from '../context/RepositoryContext';
 
 export default function ProductDetail() {
+  const { uid } = useAuth();
+  const { repository } = useRepository();
   const location = useLocation();
   const { category, description, id, image, options, price, title, imageURL } =
     location.state;
@@ -13,6 +17,18 @@ export default function ProductDetail() {
     if (e.target.checked) {
       setSelectedOption(e.target.value);
     }
+  };
+
+  const handleAddCart = () => {
+    const product = {
+      id,
+      option: selectedOption,
+      price,
+      title,
+      imageURL: image || imageURL,
+      quantity: 1,
+    };
+    repository.updateCart(uid, product);
   };
 
   return (
@@ -64,7 +80,11 @@ export default function ProductDetail() {
         </div>
         <div className='mt-3'>
           <div className='px-3 py-2 text-white bg-black hover:opacity-70'>
-            <Button text={'장바구니'} />
+            <Button
+              onClick={handleAddCart}
+              text={'장바구니'}
+              state={!selectedOption}
+            />
           </div>
         </div>
       </section>

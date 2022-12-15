@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Title from '../components/ui/Title';
 import Button from '../components/ui/Button';
 import { useRepository } from '../context/RepositoryContext';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const imageUploader = new ImageUploader();
 
@@ -18,19 +19,31 @@ export default function AddProduct() {
   const [optionText, setOptionText] = useState('');
   const [istext, setIsText] = useState(false);
   const { repository } = useRepository();
+  const queryClient = useQueryClient();
+  const mutation = useMutation(
+    ({ product, url }) => repository.addNewProduct(product, url),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['products']),
+    }
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (options.length) {
       imageUploader.upload(file).then((data) => {
         const url = data.url;
-        repository.addNewProduct(product, url).then(() => {
-          setSuccess('제품이 등록 되었습니다.');
-          setTimeout(() => {
-            setSuccess(null);
-            navigate(-1);
-          }, 3000);
-        });
+        mutation.mutate(
+          { product, url },
+          {
+            onSuccess: () => {
+              setSuccess('제품이 등록 되었습니다.');
+              setTimeout(() => {
+                setSuccess(null);
+                navigate(-1);
+              }, 3000);
+            },
+          }
+        );
       });
     }
   };

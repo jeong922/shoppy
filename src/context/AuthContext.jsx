@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
     });
   }, []);
   return (
-    <AuthContext.Provider value={{ auth, user }}>
+    <AuthContext.Provider value={{ auth, uid: user && user.uid, user }}>
       {children}
     </AuthContext.Provider>
   );
