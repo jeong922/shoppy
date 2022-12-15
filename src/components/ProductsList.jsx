@@ -1,18 +1,12 @@
 import React from 'react';
 import Product from '../components/Product';
-import { useRepository } from '../context/RepositoryContext';
-import { useQuery } from '@tanstack/react-query';
 import Loading from './Loading';
+import useProducts from '../hooks/useProducts';
 
 export default function ProductsList() {
-  const { repository } = useRepository();
   const {
-    isLoading,
-    error,
-    data: products,
-  } = useQuery(['products'], () => repository.getProducts(), {
-    staleTime: 1000 * 60,
-  });
+    productsQuery: { isLoading, error, data: products },
+  } = useProducts();
 
   return (
     <>

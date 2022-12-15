@@ -4,8 +4,7 @@ import Checkbox from '../components/ui/Checkbox';
 import { useNavigate } from 'react-router-dom';
 import Title from '../components/ui/Title';
 import Button from '../components/ui/Button';
-import { useRepository } from '../context/RepositoryContext';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import useProducts from '../hooks/useProducts';
 
 const imageUploader = new ImageUploader();
 
@@ -18,21 +17,14 @@ export default function AddProduct() {
   const [scrollY, setScrollY] = useState(0);
   const [optionText, setOptionText] = useState('');
   const [istext, setIsText] = useState(false);
-  const { repository } = useRepository();
-  const queryClient = useQueryClient();
-  const mutation = useMutation(
-    ({ product, url }) => repository.addNewProduct(product, url),
-    {
-      onSuccess: () => queryClient.invalidateQueries(['products']),
-    }
-  );
+  const { addProduct } = useProducts();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (options.length) {
       imageUploader.upload(file).then((data) => {
         const url = data.url;
-        mutation.mutate(
+        addProduct.mutate(
           { product, url },
           {
             onSuccess: () => {

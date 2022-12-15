@@ -3,12 +3,10 @@ import { useLocation } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { replacePrice } from '../util/data';
 import { IoIosArrowForward } from 'react-icons/io';
-import { useAuth } from '../context/AuthContext';
-import { useRepository } from '../context/RepositoryContext';
+import useCart from '../hooks/useCart';
 
 export default function ProductDetail() {
-  const { uid } = useAuth();
-  const { repository } = useRepository();
+  const { updateItem } = useCart();
   const location = useLocation();
   const { category, description, id, image, options, price, title, imageURL } =
     location.state;
@@ -18,7 +16,6 @@ export default function ProductDetail() {
       setSelectedOption(e.target.value);
     }
   };
-
   const handleAddCart = () => {
     const product = {
       id,
@@ -28,7 +25,7 @@ export default function ProductDetail() {
       imageURL: image || imageURL,
       quantity: 1,
     };
-    repository.updateCart(uid, product);
+    updateItem.mutate(product);
   };
 
   return (

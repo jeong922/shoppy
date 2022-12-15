@@ -2,28 +2,24 @@ import React from 'react';
 import { replacePrice } from '../util/data';
 import { TbMinus, TbPlus } from 'react-icons/tb';
 import { AiOutlineClose } from 'react-icons/ai';
-import { useRepository } from '../context/RepositoryContext';
+import useCart from '../hooks/useCart';
 
 export default function CartItem({
   product: { id, imageURL, option, price, quantity, title },
   product,
-  uid,
 }) {
-  const { repository } = useRepository();
-
+  const { removeItem, updateItem } = useCart();
   const handleMinus = () => {
     if (quantity < 2) {
       return;
     }
-    repository.updateCart(uid, { ...product, quantity: quantity - 1 });
+    updateItem.mutate({ ...product, quantity: quantity - 1 });
   };
-
   const handlePlus = () => {
-    repository.updateCart(uid, { ...product, quantity: quantity + 1 });
+    updateItem.mutate({ ...product, quantity: quantity + 1 });
   };
-
   const handleDelete = () => {
-    repository.removeCartItem(uid, id);
+    removeItem.mutate(id);
   };
 
   return (
@@ -38,8 +34,9 @@ export default function CartItem({
           <span className='text-sm opacity-70'>사이즈 : {option}</span>
         </div>
       </td>
-      <td className='flex w-full p-2'>
-        <div className='flex items-center justify-center'>
+
+      <td className='p-2 inline-table sm:table-cell'>
+        <div className='flex items-center justify-center p-2'>
           <TbMinus
             onClick={handleMinus}
             className='cursor-pointer hover:opacity-70'
@@ -51,9 +48,11 @@ export default function CartItem({
           />
         </div>
       </td>
+
       <td className='relative p-2 text-center'>
         <span>{replacePrice(price)}원</span>
       </td>
+
       <td>
         <button
           onClick={handleDelete}
