@@ -9,6 +9,7 @@ export default function Product({ product }) {
   const goToProductDetails = () => {
     navigate(`products/${id}`, { state: product });
   };
+
   return (
     <li
       onClick={goToProductDetails}

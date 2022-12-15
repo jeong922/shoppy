@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, onValue, off } from 'firebase/database';
+import { getDatabase, ref, set, onValue, off, get } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
 import { firebaseApp } from './firebase';
 
@@ -20,14 +20,23 @@ export default class Repository {
     });
   }
 
-  getItem(directory, onUpdate) {
-    const starCountRef = ref(this.db, `${directory}`);
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      data && onUpdate(data);
+  getProducts() {
+    return get(ref(this.db, `products`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        return Object.values(snapshot.val());
+      }
+      return [];
     });
-    return () => off(starCountRef);
   }
+
+  // getItem(directory, onUpdate) {
+  //   const starCountRef = ref(this.db, `${directory}`);
+  //   onValue(starCountRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     data && onUpdate(data);
+  //   });
+  //   return () => off(starCountRef);
+  // }
 
   // TODO:
   // 관리자 모드에서 상품 수정 삭제 기능

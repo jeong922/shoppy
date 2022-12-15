@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { replacePrice } from '../util/data';
 import { IoIosArrowForward } from 'react-icons/io';
@@ -15,7 +15,6 @@ export default function ProductDetail() {
     }
   };
 
-  console.log(selectedOption);
   return (
     <div className='flex flex-col w-full max-w-4xl px-3 py-12 mx-auto md:flex-row'>
       <section className='mb-3 md:w-1/2'>

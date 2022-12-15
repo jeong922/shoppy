@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Repository from '../api/repository';
 import { ImageUploader } from '../api/uploader';
 import Checkbox from '../components/ui/Checkbox';
 import { useNavigate } from 'react-router-dom';
 import Title from '../components/ui/Title';
 import Button from '../components/ui/Button';
+import { useRepository } from '../context/RepositoryContext';
 
 const imageUploader = new ImageUploader();
-const repository = new Repository();
 
 export default function AddProduct() {
   const navigate = useNavigate();
@@ -18,6 +17,7 @@ export default function AddProduct() {
   const [scrollY, setScrollY] = useState(0);
   const [optionText, setOptionText] = useState('');
   const [istext, setIsText] = useState(false);
+  const { repository } = useRepository();
 
   const handleSubmit = (e) => {
     e.preventDefault();
