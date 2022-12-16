@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         mainColor: '#c084fc',
         modal_bg: '#000000b3',
+        userMenuBg: '#ececec94',
       },
     },
   },

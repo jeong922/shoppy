@@ -7,7 +7,11 @@ export default function Login() {
   const { auth } = useAuth();
   const onLogin = (e) => {
     auth.login(e.currentTarget.name).catch(console.error);
-    navigate('/');
+    // FIXME:
+    // 다른 처리방법 생각해보기
+    setTimeout(() => {
+      navigate('/');
+    }, 4200);
   };
 
   return (

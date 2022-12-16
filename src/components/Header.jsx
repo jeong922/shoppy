@@ -1,21 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CgShoppingBag } from 'react-icons/cg';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Avatar from './Avatar';
 import CartStatus from './CartStatus';
+import SideMenu from './SideMenu';
 import Button from './ui/Button';
 
+const USER_MENU_STYLE =
+  'w-full py-2 text-center cursor-pointer hover:bg-userMenuBg';
 export default function Header() {
   const navigate = useNavigate();
   const { auth, user } = useAuth();
   const [show, setShow] = useState(false);
+  const [showSideMenu, setShowSideMenu] = useState(false);
   const handleLogout = () => {
     auth.logout();
   };
   // const handleShowUserMenu = () => setShow(true);
   const handleHiddenUserMenu = () => setShow(false);
   const handleUserMenu = () => (show ? setShow(false) : setShow(true));
+  const handleShowSideMenu = () => {
+    showSideMenu ? setShowSideMenu(false) : setShowSideMenu(true);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 640) {
+        setShowSideMenu(false);
+      }
+      return () => {
+        window.removeEventListener('resize', () => {
+          if (window.innerWidth > 640) {
+            setShowSideMenu(false);
+          }
+        });
+      };
+    });
+  }, []);
+
   return (
     <header
       onMouseLeave={handleHiddenUserMenu}
@@ -23,45 +47,71 @@ export default function Header() {
     >
       <Link
         to='/'
-        className='flex items-center text-2xl cursor-pointer shrink-0'
+        className='items-center hidden text-2xl cursor-pointer sm:flex shrink-0'
       >
         <CgShoppingBag className='mr-2 text-mainColor' />
         <span className='font-semibold'>J Shop</span>
       </Link>
 
-      <div className='hidden w-2/3 px-4 md:flex'>
+      <GiHamburgerMenu
+        onClick={handleShowSideMenu}
+        className='block text-lg cursor-pointer sm:hidden'
+      />
+
+      {/* 사이드 메뉴 배경 */}
+      {showSideMenu && (
+        <div
+          onClick={handleShowSideMenu}
+          className='fixed top-0 z-30 w-full h-full'
+        ></div>
+      )}
+
+      {/* 사이드 메뉴 */}
+      <div
+        className={`${
+          showSideMenu ? 'translate-x-0' : '-translate-x-44'
+        } fixed top-0 left-0 h-full px-6 bg-white w-44 z-50`}
+      >
+        <SideMenu onClick={handleShowSideMenu} />
+      </div>
+
+      <div className='hidden w-2/3 px-4 sm:flex'>
         <span className='mr-3'>WOMEN</span>
         <span className='mr-3'>MEN</span>
         <span className='mr-3'>ACC&SHOES</span>
       </div>
 
-      <div className='flex items-center'>
+      <div className='relative flex items-center'>
         {user && <CartStatus />}
-        {user && (
-          <div
-            className={`${
-              user.isAdmin && 'cursor-pointer'
-            } w-8 h-8 shrink-0 mx-2`}
-            onClick={handleUserMenu}
-          >
-            <Avatar user={user} />
-            {user && user.isAdmin && show && (
-              <Link to='products/add'>
-                <div className='w-20 p-2 mt-2 text-sm text-center rounded-lg cursor-pointer bg-neutral-100 hover:bg-neutral-50'>
-                  <span>상품 등록</span>
-                </div>
-              </Link>
+        <div
+          className='flex items-center justify-center w-8 h-8 mx-2 rounded-full cursor-pointer shrink-0'
+          onClick={handleUserMenu}
+        >
+          {user && <Avatar user={user} />}
+        </div>
+
+        {show && (
+          <ul className='absolute flex flex-col items-center justify-center w-24 py-2 text-sm shadow-md -left-2 top-10 bg-neutral-50'>
+            {user && user.isAdmin && (
+              <li className={USER_MENU_STYLE}>
+                <Link to='products/add'>
+                  <div>
+                    <span>상품 등록</span>
+                  </div>
+                </Link>
+              </li>
             )}
-          </div>
+            <li className={USER_MENU_STYLE}>
+              <div onClick={handleLogout}>
+                <span>로그아웃</span>
+              </div>
+            </li>
+          </ul>
         )}
 
-        {!user ? (
+        {!user && (
           <div className='shrink-0'>
             <Button text={'로그인'} onClick={() => navigate('login')} />
-          </div>
-        ) : (
-          <div className='shrink-0'>
-            <Button text={'로그아웃'} onClick={handleLogout} />
           </div>
         )}
       </div>
