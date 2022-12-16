@@ -6,6 +6,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { AiOutlineClose } from 'react-icons/ai';
 import useCart from '../hooks/useCart';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 
 export default function ProductDetail() {
   const { updateItem } = useCart();
@@ -26,7 +27,10 @@ export default function ProductDetail() {
   };
 
   const handleAddCart = () => {
+    const itemId = uuid();
+    console.log(itemId);
     const product = {
+      itemId,
       id,
       option: selectedOption,
       price,
@@ -34,6 +38,7 @@ export default function ProductDetail() {
       imageURL: image || imageURL,
       quantity: 1,
     };
+    console.log(product);
     updateItem.mutate(product);
     setIsSuccess(true);
   };
@@ -97,18 +102,21 @@ export default function ProductDetail() {
       </section>
       {isSuccess && (
         <div className='fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-modal_bg'>
-          <div className='relative z-50 px-10 m-3 rounded-md py-7 text-md bg-neutral-50'>
-            <AiOutlineClose className='absolute cursor-pointer top-3 right-3 hover:opacity-70' />
-            <p>장바구니에 상품이 담겼습니다.</p>
-            <p>장바구니로 이동하시겠습니까?</p>
-            <div className='flex mt-3'>
-              <div className='mr-2 text-white bg-black hover:opacity-70'>
+          <div className='relative z-50 px-10 m-3 text-center rounded-md py-7 text-md bg-neutral-50'>
+            <AiOutlineClose
+              onClick={handleModal}
+              className='absolute cursor-pointer top-3 right-3 hover:opacity-70'
+            />
+            <p className='text-base'>장바구니에 상품이 담겼습니다.</p>
+            <p className='text-base'>장바구니로 이동하시겠습니까?</p>
+            <div className='flex justify-center mt-3'>
+              <div className='w-32 mr-2 text-sm text-white bg-black border-2 border-black hover:opacity-70'>
                 <Button
                   onClick={() => navigate('/cart')}
-                  text={'장바구니로 이동'}
+                  text={'확인'}
                 ></Button>
               </div>
-              <div className='border-2 border-neutral-200 hover:opacity-70'>
+              <div className='w-32 text-sm border-2 border-neutral-200 hover:opacity-70'>
                 <Button onClick={handleModal} text={'취소'}></Button>
               </div>
             </div>

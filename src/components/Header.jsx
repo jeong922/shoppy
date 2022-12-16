@@ -43,7 +43,7 @@ export default function Header() {
   return (
     <header
       onMouseLeave={handleHiddenUserMenu}
-      className='fixed flex justify-between items-center w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200 z-20'
+      className='fixed flex items-center w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200 z-20'
     >
       <Link
         to='/'
@@ -75,13 +75,13 @@ export default function Header() {
         <SideMenu onClick={handleShowSideMenu} />
       </div>
 
-      <div className='hidden w-2/3 px-4 sm:flex'>
-        <span className='mr-3'>WOMEN</span>
-        <span className='mr-3'>MEN</span>
-        <span className='mr-3'>ACC&SHOES</span>
+      <div className='hidden w-2/3 ml-7 sm:flex'>
+        <span className='mr-5'>WOMEN</span>
+        <span className='mr-5'>MEN</span>
+        <span className='mr-5'>ACC&SHOES</span>
       </div>
 
-      <div className='relative flex items-center'>
+      <div className='relative flex items-center justify-end w-full'>
         {user && <CartStatus />}
         <div
           className='flex items-center justify-center w-8 h-8 mx-2 rounded-full cursor-pointer shrink-0'
@@ -91,7 +91,7 @@ export default function Header() {
         </div>
 
         {show && (
-          <ul className='absolute flex flex-col items-center justify-center w-24 py-2 text-sm shadow-md -left-2 top-10 bg-neutral-50'>
+          <ul className='absolute right-0 flex flex-col items-center justify-center w-24 py-2 text-sm shadow-md top-10 bg-neutral-50'>
             {user && user.isAdmin && (
               <li className={USER_MENU_STYLE}>
                 <Link to='products/add'>

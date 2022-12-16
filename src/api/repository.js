@@ -37,7 +37,7 @@ export default class Repository {
   }
 
   async updateCart(userId, product) {
-    return set(ref(this.db, `carts/${userId}/${product.id}`), product);
+    return set(ref(this.db, `carts/${userId}/${product.itemId}`), product);
   }
 
   async removeCartItem(userId, productId) {

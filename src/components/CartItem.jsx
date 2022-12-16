@@ -5,7 +5,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import useCart from '../hooks/useCart';
 
 export default function CartItem({
-  product: { id, imageURL, option, price, quantity, title },
+  product: { id, imageURL, option, price, quantity, title, itemId },
   product,
 }) {
   const { removeItem, updateItem } = useCart();
@@ -19,16 +19,12 @@ export default function CartItem({
     updateItem.mutate({ ...product, quantity: quantity + 1 });
   };
   const handleDelete = () => {
-    removeItem.mutate(id);
+    removeItem.mutate(itemId);
   };
 
   return (
     <tr className='w-full border-b border-neutral-200 last:border-none'>
       <td className='flex flex-col items-center p-2 sm:flex-row'>
-        {/* <div
-          className='object-cover w-full mr-3 bg-center bg-cover h-72 sm:h-48 sm:w-44 '
-          style={{ backgroundImage: `url(${imageURL})` }}
-        ></div> */}
         <img src={imageURL} alt='' className='mr-3 sm:w-40' />
         <div className='flex flex-col w-full mt-2'>
           <span className='mb-2 font-semibold'>{title}</span>
