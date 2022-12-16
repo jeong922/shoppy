@@ -15,10 +15,15 @@ export default function Product({ product }) {
       onClick={goToProductDetails}
       className='cursor-pointer hover:opacity-70'
     >
-      <div
-        className='bg-no-repeat bg-cover bg-center h-[30rem]'
+      {/* <div
+        className='bg-cover bg-center h-[30rem]'
         style={{ backgroundImage: `url(${image || imageURL})` }}
-      ></div>
+      ></div> */}
+
+      <div className='flex justify-center bg-neutral-100'>
+        <img src={image || imageURL} alt='' className='h-[480px] w-full' />
+      </div>
+
       <div className='flex flex-col py-2'>
         <span className='font-semibold truncate'>{title}</span>
         <span className='font-semibold truncate opacity-70'>
