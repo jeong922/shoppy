@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { replacePrice } from '../util/data';
@@ -42,6 +42,10 @@ export default function ProductDetail() {
     updateItem.mutate(product);
     setIsSuccess(true);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className='flex flex-col w-full max-w-4xl px-3 py-12 mx-auto md:flex-row'>

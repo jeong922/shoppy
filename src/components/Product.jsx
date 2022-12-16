@@ -20,8 +20,12 @@ export default function Product({ product }) {
         style={{ backgroundImage: `url(${image || imageURL})` }}
       ></div> */}
 
-      <div className='flex justify-center bg-neutral-100'>
-        <img src={image || imageURL} alt='' className='h-[458px] w-full' />
+      <div className='flex justify-center bg-neutral-100 h-[25rem] w-full'>
+        <img
+          src={image || imageURL}
+          alt=''
+          className='object-cover w-full h-full'
+        />
       </div>
 
       <div className='flex flex-col py-2'>
