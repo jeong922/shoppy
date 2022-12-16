@@ -21,7 +21,7 @@ export default function Product({ product }) {
       ></div> */}
 
       <div className='flex justify-center bg-neutral-100'>
-        <img src={image || imageURL} alt='' className='h-[480px] w-full' />
+        <img src={image || imageURL} alt='' className='h-[458px] w-full' />
       </div>
 
       <div className='flex flex-col py-2'>

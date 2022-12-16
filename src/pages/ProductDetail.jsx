@@ -3,19 +3,28 @@ import { useLocation } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { replacePrice } from '../util/data';
 import { IoIosArrowForward } from 'react-icons/io';
+import { AiOutlineClose } from 'react-icons/ai';
 import useCart from '../hooks/useCart';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductDetail() {
   const { updateItem } = useCart();
   const location = useLocation();
+  const navigate = useNavigate();
   const { category, description, id, image, options, price, title, imageURL } =
     location.state;
   const [selectedOption, setSelectedOption] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
   const handleSelectOption = (e) => {
     if (e.target.checked) {
       setSelectedOption(e.target.value);
     }
   };
+
+  const handleModal = () => {
+    isSuccess ? setIsSuccess(false) : setIsSuccess(true);
+  };
+
   const handleAddCart = () => {
     const product = {
       id,
@@ -26,6 +35,7 @@ export default function ProductDetail() {
       quantity: 1,
     };
     updateItem.mutate(product);
+    setIsSuccess(true);
   };
 
   return (
@@ -85,6 +95,26 @@ export default function ProductDetail() {
           </div>
         </div>
       </section>
+      {isSuccess && (
+        <div className='fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-modal_bg'>
+          <div className='relative z-50 px-10 m-3 rounded-md py-7 text-md bg-neutral-50'>
+            <AiOutlineClose className='absolute cursor-pointer top-3 right-3 hover:opacity-70' />
+            <p>장바구니에 상품이 담겼습니다.</p>
+            <p>장바구니로 이동하시겠습니까?</p>
+            <div className='flex mt-3'>
+              <div className='mr-2 text-white bg-black hover:opacity-70'>
+                <Button
+                  onClick={() => navigate('/cart')}
+                  text={'장바구니로 이동'}
+                ></Button>
+              </div>
+              <div className='border-2 border-neutral-200 hover:opacity-70'>
+                <Button onClick={handleModal} text={'취소'}></Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

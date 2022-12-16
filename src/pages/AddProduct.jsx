@@ -227,7 +227,7 @@ export default function AddProduct() {
         </div>
       </form>
       {success && (
-        <div className='fixed top-0 flex items-center justify-center w-full h-full bg-modal_bg'>
+        <div className='fixed top-0 z-50 flex items-center justify-center w-full h-full bg-modal_bg'>
           <div className='z-50 p-5 m-3 text-lg rounded-md bg-neutral-50'>
             <span>{success}</span>
           </div>

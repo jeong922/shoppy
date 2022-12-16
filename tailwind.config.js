@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         mainColor: '#c084fc',
-        modal_bg: '#000000b3',
+        modal_bg: '#00000054',
         userMenuBg: '#ececec94',
       },
     },
