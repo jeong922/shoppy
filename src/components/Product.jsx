@@ -7,7 +7,7 @@ export default function Product({ product }) {
   const { id, image, price, title, imageURL } = product;
 
   const goToProductDetails = () => {
-    navigate(`products/${id}`, { state: product });
+    navigate(`/products/${id}`, { state: product });
   };
 
   return (
@@ -15,12 +15,7 @@ export default function Product({ product }) {
       onClick={goToProductDetails}
       className='cursor-pointer hover:opacity-70'
     >
-      {/* <div
-        className='bg-cover bg-center h-[30rem]'
-        style={{ backgroundImage: `url(${image || imageURL})` }}
-      ></div> */}
-
-      <div className='flex justify-center bg-neutral-100 h-[25rem] w-full'>
+      <div className='flex justify-center bg-neutral-100 sm:h-[25rem] w-full h-[35rem] '>
         <img
           src={image || imageURL}
           alt=''

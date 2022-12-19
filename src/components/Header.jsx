@@ -76,9 +76,15 @@ export default function Header() {
       </div>
 
       <div className='hidden w-2/3 ml-7 sm:flex'>
-        <span className='mr-5'>WOMEN</span>
-        <span className='mr-5'>MEN</span>
-        <span className='mr-5'>ACC&SHOES</span>
+        <Link to='women'>
+          <span className='mr-5 hover:opacity-70'>WOMEN</span>
+        </Link>
+        <Link to='men'>
+          <span className='mr-5 hover:opacity-70'>MEN</span>
+        </Link>
+        <Link to='acc-shoes'>
+          <span className='mr-5 hover:opacity-70'>ACC&SHOES</span>
+        </Link>
       </div>
 
       <div className='relative flex items-center justify-end w-full'>

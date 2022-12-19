@@ -43,6 +43,21 @@ export default function ProductDetail() {
     setIsSuccess(true);
   };
 
+  const handleGoToCategory = (e) => {
+    const data = e.target.firstChild.data;
+    if (data === '여성') {
+      navigate('/women');
+      return;
+    }
+
+    if (data === '남성') {
+      navigate('/men');
+      return;
+    }
+
+    navigate('/acc-shoes');
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -57,7 +72,10 @@ export default function ProductDetail() {
       </section>
       <section className='flex flex-col w-full px-2 md:w-1/2'>
         <h4 className='mb-3 text-3xl font-semibold'>{title}</h4>
-        <div className='flex items-center mb-3 text-neutral-500'>
+        <div
+          onClick={handleGoToCategory}
+          className='flex items-center mb-3 cursor-pointer text-neutral-500'
+        >
           <span className='text-sm'>{category}</span>
           <IoIosArrowForward />
         </div>
