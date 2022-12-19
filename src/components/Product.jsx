@@ -13,7 +13,7 @@ export default function Product({ product }) {
   return (
     <li
       onClick={goToProductDetails}
-      className='cursor-pointer hover:opacity-70'
+      className='p-2 cursor-pointer hover:shadow-lg hover:opacity-70'
     >
       <div className='flex justify-center bg-neutral-100 sm:h-[25rem] w-full h-[35rem] '>
         <img
