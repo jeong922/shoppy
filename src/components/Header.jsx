@@ -96,8 +96,8 @@ export default function Header() {
           {user && <Avatar user={user} />}
         </div>
 
-        {show && (
-          <ul className='absolute right-0 flex flex-col items-center justify-center w-24 py-2 text-sm shadow-md top-10 bg-neutral-50'>
+        {show && user && (
+          <ul className='absolute right-0 flex flex-col items-center justify-center w-24 py-2 text-sm rounded-md shadow-md top-10 bg-neutral-50'>
             {user && user.isAdmin && (
               <li className={USER_MENU_STYLE}>
                 <Link to='products/add'>

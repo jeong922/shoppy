@@ -13,9 +13,9 @@ export default function Product({ product }) {
   return (
     <li
       onClick={goToProductDetails}
-      className='p-2 cursor-pointer hover:shadow-lg hover:opacity-70'
+      className='p-2 cursor-pointer hover:shadow-lg group'
     >
-      <div className='flex justify-center bg-neutral-100 sm:h-[25rem] w-full h-[35rem] '>
+      <div className='flex justify-center bg-neutral-100 sm:h-[25rem] w-full h-[35rem] group-hover:opacity-70'>
         <img
           src={image || imageURL}
           alt=''

@@ -12,7 +12,7 @@ function App() {
         <RepositoryProvider>
           <QueryClientProvider client={queryClient}>
             <Header />
-            <div className='h-auto min-h-full pt-20'>
+            <div className='min-h-full pt-20 '>
               <Outlet />
             </div>
             <Footer />

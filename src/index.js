@@ -12,6 +12,7 @@ import Cart from './pages/Cart';
 import Products from './pages/Products';
 import AddProduct from './pages/AddProduct';
 import ProtectedPath from './pages/ProtectedPath';
+import Join from './pages/Join';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: 'login', element: <Login /> },
+      { path: 'join', element: <Join /> },
       { path: 'cart', element: <Cart /> },
       {
         path: 'products',

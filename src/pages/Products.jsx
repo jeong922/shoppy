@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Product from '../components/Product';
 import useProducts from '../hooks/useProducts';
 import { useLocation } from 'react-router-dom';
@@ -10,6 +10,10 @@ export default function ProductsList() {
   const {
     productsQuery: { isLoading, error, data: products },
   } = useProducts();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <>

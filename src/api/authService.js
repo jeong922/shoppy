@@ -3,6 +3,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { getDatabase, ref, get } from 'firebase/database';
 import { firebaseApp } from './firebase';
@@ -14,6 +16,29 @@ export default class AuthService {
     this.githubAuthProvider = new GithubAuthProvider();
     this.database = getDatabase(firebaseApp);
   }
+
+  createEmailAndPassword(email, password) {
+    createUserWithEmailAndPassword(this.firebaseAuth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+  }
+
+  signInEmailAndPassword(email, password) {
+    signInWithEmailAndPassword(this.firebaseAuth, email, password).then(
+      (userCredential) => {
+        const user = userCredential.user;
+      }
+    );
+  }
+
   login(provider) {
     const authProvider = this.getProvider(provider);
     return signInWithPopup(this.firebaseAuth, authProvider);
