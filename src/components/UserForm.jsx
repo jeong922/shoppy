@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../context/AuthContext';
 
 export default function UserForm({ title, onValid }) {
-  const { auth } = useAuth();
-  // const [error, setError] = useState(null);
   const [invalidEmail, setInvalidEmail] = useState(null);
   const [invalidPassword, setInvalidPassword] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit } = useForm();
-  // const onValid = (data) => {
-  //   const { email, password } = data;
-  //   auth.createEmailAndPassword(email, password);
-  // };
 
   const onInvalid = (error) => {
     const { email, password } = error;

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import UserForm from '../components/UserForm';
 
 export default function Login() {
@@ -9,6 +8,7 @@ export default function Login() {
   const { auth } = useAuth();
   const onLogin = (e) => {
     auth.login(e.currentTarget.name).catch(console.error);
+    navigate('/');
     // FIXME:
     // 다른 처리방법 생각해보기
     // setTimeout(() => {
@@ -18,6 +18,7 @@ export default function Login() {
   const onValid = (data) => {
     const { email, password } = data;
     auth.signInEmailAndPassword(email, password);
+    navigate('/');
   };
 
   return (

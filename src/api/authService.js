@@ -17,7 +17,7 @@ export default class AuthService {
     this.database = getDatabase(firebaseApp);
   }
 
-  createEmailAndPassword(email, password) {
+  async createEmailAndPassword(email, password) {
     createUserWithEmailAndPassword(this.firebaseAuth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -31,12 +31,8 @@ export default class AuthService {
       });
   }
 
-  signInEmailAndPassword(email, password) {
-    signInWithEmailAndPassword(this.firebaseAuth, email, password).then(
-      (userCredential) => {
-        const user = userCredential.user;
-      }
-    );
+  async signInEmailAndPassword(email, password) {
+    return signInWithEmailAndPassword(this.firebaseAuth, email, password);
   }
 
   login(provider) {
