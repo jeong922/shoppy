@@ -38,7 +38,6 @@ export default function ProductDetail() {
       imageURL: image || imageURL,
       quantity: 1,
     };
-    console.log(product);
     updateItem.mutate(product);
     setIsSuccess(true);
   };

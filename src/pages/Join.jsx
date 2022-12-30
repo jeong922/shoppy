@@ -8,8 +8,11 @@ export default function Join() {
   const navigate = useNavigate();
   const onValid = (data) => {
     const { email, password } = data;
-    auth.createEmailAndPassword(email, password);
-    navigate('/');
+    auth.createEmailAndPassword(email, password).then((data) => {
+      if (data) {
+        navigate('/');
+      }
+    });
   };
   return (
     <main>

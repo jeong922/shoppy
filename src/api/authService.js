@@ -18,21 +18,15 @@ export default class AuthService {
   }
 
   async createEmailAndPassword(email, password) {
-    createUserWithEmailAndPassword(this.firebaseAuth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-      });
+    return await createUserWithEmailAndPassword(
+      this.firebaseAuth,
+      email,
+      password
+    );
   }
 
   async signInEmailAndPassword(email, password) {
-    return signInWithEmailAndPassword(this.firebaseAuth, email, password);
+    return await signInWithEmailAndPassword(this.firebaseAuth, email, password);
   }
 
   login(provider) {

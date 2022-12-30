@@ -7,18 +7,20 @@ export default function Login() {
   const navigate = useNavigate();
   const { auth } = useAuth();
   const onLogin = (e) => {
-    auth.login(e.currentTarget.name).catch(console.error);
-    navigate('/');
-    // FIXME:
-    // 다른 처리방법 생각해보기
-    // setTimeout(() => {
-    //   navigate('/');
-    // }, 4200);
+    auth.login(e.currentTarget.name).then((user) => {
+      if (user) {
+        navigate('/');
+      }
+    });
   };
+
   const onValid = (data) => {
     const { email, password } = data;
-    auth.signInEmailAndPassword(email, password);
-    navigate('/');
+    auth.signInEmailAndPassword(email, password).then((user) => {
+      if (user) {
+        navigate('/');
+      }
+    });
   };
 
   return (
