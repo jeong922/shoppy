@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import UserForm from '../components/UserForm';
 
 export default function Login() {
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { auth } = useAuth();
   const onLogin = (e) => {
@@ -16,24 +17,43 @@ export default function Login() {
 
   const onValid = (data) => {
     const { email, password } = data;
-    auth.signInEmailAndPassword(email, password).then((user) => {
-      if (user) {
-        navigate('/');
-      }
-    });
+    auth
+      .signInEmailAndPassword(email, password)
+      .then((user) => {
+        if (user) {
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        console.log(error.code);
+        let code = error.code;
+        switch (code) {
+          //FIXME: 에러 코드 추가하기
+          case 'auth/wrong-password':
+            setError('올바른 비밀번호가 아닙니다.');
+            break;
+          case 'auth/user-not-found':
+            setError(
+              '일치하는 사용자가 없습니다. 이메일 주소를 확인해 주세요.'
+            );
+            break;
+          default:
+            console.log('해당하는 에러 코드가 없음!');
+        }
+      });
   };
 
   return (
     <main className='w-full h-screen'>
       <section className='flex flex-col items-center mt-40'>
         <UserForm title={'로그인'} onValid={onValid} />
+        {error && <span className='mb-2 text-sm text-red-600'>{error}</span>}
         <span
           onClick={() => navigate('/join')}
           className='mb-3 text-sm cursor-pointer text-neutral-500 hover:text-neutral-700'
         >
           이메일 회원가입
         </span>
-
         <div className='flex flex-col items-center justify-center text-center'>
           <h4 className='text-neutral-500'>SNS 계정으로 로그인</h4>
           <div className='mt-3'>
