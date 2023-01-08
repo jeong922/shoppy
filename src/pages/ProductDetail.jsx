@@ -7,9 +7,11 @@ import { AiOutlineClose } from 'react-icons/ai';
 import useCart from '../hooks/useCart';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import { useAuth } from '../context/AuthContext';
 
 export default function ProductDetail() {
   const { updateItem } = useCart();
+  const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const { category, description, id, image, options, price, title, imageURL } =
@@ -27,19 +29,22 @@ export default function ProductDetail() {
   };
 
   const handleAddCart = () => {
-    const itemId = uuid();
-    console.log(itemId);
-    const product = {
-      itemId,
-      id,
-      option: selectedOption,
-      price,
-      title,
-      imageURL: image || imageURL,
-      quantity: 1,
-    };
-    updateItem.mutate(product);
-    setIsSuccess(true);
+    if (user) {
+      const itemId = uuid();
+      const product = {
+        itemId,
+        id,
+        option: selectedOption,
+        price,
+        title,
+        imageURL: image || imageURL,
+        quantity: 1,
+      };
+      updateItem.mutate(product);
+      setIsSuccess(true);
+    } else {
+      navigate('/login');
+    }
   };
 
   const handleGoToCategory = (e) => {

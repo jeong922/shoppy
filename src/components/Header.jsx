@@ -17,6 +17,7 @@ export default function Header() {
   const [showSideMenu, setShowSideMenu] = useState(false);
   const handleLogout = () => {
     auth.logout();
+    navigate('/');
   };
   // const handleShowUserMenu = () => setShow(true);
   const handleHiddenUserMenu = () => setShow(false);
