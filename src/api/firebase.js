@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app';
-// import { getAnalytics } from 'firebase/analytics';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -12,5 +11,4 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUERMENT_ID,
 };
 
-export const firebaseApp = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(firebaseApp);
+export const app = initializeApp(firebaseConfig);

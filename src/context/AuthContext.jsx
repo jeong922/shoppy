@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import AuthService from '../api/authService';
-import { firebaseApp } from '../api/firebase';
+import { app } from '../api/firebase';
 
 const AuthContext = createContext();
-const auth = new AuthService(firebaseApp);
+const auth = new AuthService(app);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();

@@ -7,14 +7,14 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { getDatabase, ref, get } from 'firebase/database';
-import { firebaseApp } from './firebase';
+import { app } from './firebase';
 
 export default class AuthService {
   constructor() {
     this.firebaseAuth = getAuth();
     this.googleAuthProvider = new GoogleAuthProvider();
     this.githubAuthProvider = new GithubAuthProvider();
-    this.database = getDatabase(firebaseApp);
+    this.database = getDatabase(app);
   }
 
   async createEmailAndPassword(email, password) {

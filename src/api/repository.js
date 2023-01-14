@@ -1,10 +1,10 @@
 import { getDatabase, ref, set, get, remove } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
-import { firebaseApp } from './firebase';
+import { app } from './firebase';
 
 export default class Repository {
   constructor() {
-    this.db = getDatabase(firebaseApp);
+    this.db = getDatabase(app);
   }
 
   addNewProduct(product, imageURL) {
