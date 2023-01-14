@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CgShoppingBag } from 'react-icons/cg';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Avatar from './Avatar';
 import CartStatus from './CartStatus';
@@ -11,6 +11,7 @@ import Button from './ui/Button';
 const USER_MENU_STYLE =
   'w-full py-2 text-center cursor-pointer hover:bg-userMenuBg';
 export default function Header() {
+  const location = useLocation();
   const navigate = useNavigate();
   const { auth, user } = useAuth();
   const [show, setShow] = useState(false);
@@ -40,6 +41,8 @@ export default function Header() {
       };
     });
   }, []);
+
+  console.log(location);
 
   return (
     <header
@@ -78,13 +81,33 @@ export default function Header() {
 
       <div className='hidden w-2/3 ml-7 sm:flex'>
         <Link to='women'>
-          <span className='mr-5 hover:opacity-70'>WOMEN</span>
+          <span
+            className={`${
+              location.pathname === '/women' ? 'font-semibold' : 'font-normal'
+            } mr-5 hover:opacity-70`}
+          >
+            WOMEN
+          </span>
         </Link>
         <Link to='men'>
-          <span className='mr-5 hover:opacity-70'>MEN</span>
+          <span
+            className={`${
+              location.pathname === '/men' ? 'font-semibold' : 'font-normal'
+            } mr-5 hover:opacity-70`}
+          >
+            MEN
+          </span>
         </Link>
         <Link to='acc-shoes'>
-          <span className='mr-5 hover:opacity-70'>ACC&SHOES</span>
+          <span
+            className={`${
+              location.pathname === '/acc-shoes'
+                ? 'font-semibold'
+                : 'font-normal'
+            } mr-5 hover:opacity-70`}
+          >
+            ACC&SHOES
+          </span>
         </Link>
       </div>
 
