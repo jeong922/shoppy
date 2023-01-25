@@ -9,9 +9,9 @@ module.exports = {
         userMenuBg: '#ececec94',
       },
       backgroundImage: {
-        banner1: "url('../public/img/b-1.jpg')",
-        banner2: "url('../public/img/b-2.jpg')",
-        banner3: "url('../public/img/b-3.jpg')",
+        banner1: "url('../public/img/b1.jpg')",
+        banner2: "url('../public/img/b2.jpg')",
+        banner3: "url('../public/img/b3.jpg')",
       },
     },
   },
