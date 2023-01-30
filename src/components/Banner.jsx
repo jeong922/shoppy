@@ -61,7 +61,8 @@ export default function Banner() {
 
   const getItemWidth = () => {
     let itemWidth = size[0] * 0.85 - SLIDE_PADDING * 2;
-    itemWidth = itemWidth > 1440 ? 1440 : itemWidth;
+    // itemWidth = itemWidth > 1440 ? 1440 : itemWidth;
+    itemWidth = itemWidth > 1440 ? 1440 : itemWidth > 768 ? itemWidth : size[0];
     return itemWidth;
   };
 
@@ -133,10 +134,10 @@ export default function Banner() {
                       src={items[itemIndex].data}
                       alt='img'
                     />
-                    <div className='absolute top-0 flex items-center justify-center w-full h-full text-center text-neutral-100'>
-                      <h2 className='text-5xl font-semibold uppercase'>
+                    <div className='absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center text-center text-neutral-100'>
+                      <span className='text-2xl font-semibold uppercase md:text-4xl'>
                         {item.text}
-                      </h2>
+                      </span>
                     </div>
                   </div>
                 );
