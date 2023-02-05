@@ -117,7 +117,11 @@ export default function ProductDetail() {
           </ul>
         </div>
         <div className='mt-3'>
-          <div className='px-3 py-2 text-white bg-black hover:opacity-70'>
+          <div
+            className={`${
+              selectedOption ? ' bg-black' : 'opacity-70'
+            } px-3 py-2 text-white bg-black hover:opacity-70`}
+          >
             <Button
               onClick={handleAddCart}
               text={'장바구니'}
