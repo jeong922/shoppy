@@ -41,10 +41,13 @@ export default function ProductsList() {
       {isLoading && <Loading />}
       {error && <span>{error}</span>}
       {products && (
-        <main className='h-full mx-auto max-w-[1440px] pt-5'>
-          <span className='px-4 text-2xl font-semibold uppercase'>
-            {getPageName(pathname)}
-          </span>
+        <main className='h-full mx-auto max-w-[1440px] pt-3'>
+          <div className='py-2 mx-4 border-b border-b-neutral-300 '>
+            <span className='text-2xl font-semibold uppercase'>
+              {getPageName(pathname)}
+            </span>
+          </div>
+
           <ul className='grid grid-cols-1 gap-3 px-2 pt-2 pb-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4'>
             {/* FIXME:다른 방법 찾아보기 */}
             {pathname === '/women' &&
