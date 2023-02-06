@@ -15,13 +15,37 @@ export default function ProductsList() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  const getPageName = (pathname) => {
+    let pageName;
+    switch (pathname) {
+      case '/women':
+        pageName = 'women';
+        break;
+      case '/men':
+        pageName = 'men';
+        break;
+      case '/acc-shoes':
+        pageName = 'acc&shoes';
+        break;
+      case '/':
+        pageName = 'all';
+        break;
+      default:
+        console.log(`${pathname}이 존재하지 않음`);
+    }
+    return pageName;
+  };
+
   return (
     <>
       {isLoading && <Loading />}
       {error && <span>{error}</span>}
       {products && (
-        <main className='h-full mx-auto max-w-[1440px]'>
-          <ul className='grid grid-cols-1 gap-3 px-2 pt-10 pb-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4'>
+        <main className='h-full mx-auto max-w-[1440px] pt-5'>
+          <span className='px-4 text-2xl font-semibold uppercase'>
+            {getPageName(pathname)}
+          </span>
+          <ul className='grid grid-cols-1 gap-3 px-2 pt-2 pb-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4'>
             {/* FIXME:다른 방법 찾아보기 */}
             {pathname === '/women' &&
               products

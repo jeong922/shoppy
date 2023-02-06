@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineShopping } from 'react-icons/ai';
 import Button from '../components/ui/Button';
 import Title from '../components/ui/Title';
@@ -21,6 +21,10 @@ export default function Cart() {
 
   const deliveryCharge =
     products && products.length === 0 ? 0 : tatalPrice > 30000 ? 0 : 3000;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

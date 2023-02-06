@@ -9,7 +9,7 @@ import SideMenu from './SideMenu';
 import Button from './ui/Button';
 
 const USER_MENU_STYLE =
-  'w-full py-2 text-center cursor-pointer hover:bg-userMenuBg';
+  'w-full py-2 text-center cursor-pointer hover:bg-userMenuBg group';
 export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -18,9 +18,10 @@ export default function Header() {
   const [showSideMenu, setShowSideMenu] = useState(false);
   const handleLogout = () => {
     auth.logout();
+    handleHiddenUserMenu();
     navigate('/');
   };
-  // const handleShowUserMenu = () => setShow(true);
+  const handleShowUserMenu = () => setShow(true);
   const handleHiddenUserMenu = () => setShow(false);
   const handleUserMenu = () => (show ? setShow(false) : setShow(true));
   const handleShowSideMenu = () => {
@@ -42,13 +43,10 @@ export default function Header() {
     });
   }, []);
 
-  console.log(location);
+  console.log(show);
 
   return (
-    <header
-      onMouseLeave={handleHiddenUserMenu}
-      className='fixed flex items-center w-full h-[4.5rem] p-4 px-6 bg-white border-b border-b-neutral-200 z-20'
-    >
+    <header className='fixed flex items-center w-full h-[4.5rem] px-6 bg-white border-b border-b-neutral-200 z-20'>
       <Link
         to='/'
         className='items-center hidden text-2xl cursor-pointer sm:flex shrink-0'
@@ -111,19 +109,30 @@ export default function Header() {
         </Link>
       </div>
 
-      <div className='relative flex items-center justify-end w-full'>
+      <div className='relative flex items-center justify-end w-full h-full'>
         {user && <CartStatus />}
+
         <div
-          className='flex items-center justify-center w-8 h-8 mx-2 rounded-full cursor-pointer shrink-0'
+          className='flex items-center justify-center h-full mx-2 shrink-0'
           onClick={handleUserMenu}
+          onMouseEnter={handleShowUserMenu}
+          onMouseLeave={handleHiddenUserMenu}
         >
           {user && <Avatar user={user} />}
         </div>
 
-        {show && user && (
-          <ul className='absolute right-0 flex flex-col items-center justify-center w-24 py-2 text-sm rounded-md shadow-md top-10 bg-neutral-50'>
+        {user && (
+          <ul
+            className={`${
+              show
+                ? 'absolute right-0 flex flex-col items-center justify-center w-24 py-2 text-sm rounded-md shadow-md top-16 bg-neutral-50 z-50'
+                : 'hidden'
+            }`}
+            onMouseEnter={handleShowUserMenu}
+            onMouseLeave={handleHiddenUserMenu}
+          >
             {user && user.isAdmin && (
-              <li className={USER_MENU_STYLE}>
+              <li className={USER_MENU_STYLE} onClick={handleHiddenUserMenu}>
                 <Link to='products/add'>
                   <div>
                     <span>상품 등록</span>

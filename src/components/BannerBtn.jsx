@@ -6,7 +6,7 @@ export default function BannerBtn({ direction, onClick }) {
     <button
       onClick={onClick}
       className={`${direction === 'right' ? 'right-0' : 'left-0'} 
-        absolute h-full bg-transparent z-50 cursor-pointer px-2
+        absolute h-full bg-transparent z-10 cursor-pointer px-2
       `}
     >
       {direction === 'left' ? (

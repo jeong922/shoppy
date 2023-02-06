@@ -61,7 +61,6 @@ export default function Banner() {
 
   const getItemWidth = () => {
     let itemWidth = size[0] * 0.85 - SLIDE_PADDING * 2;
-    // itemWidth = itemWidth > 1440 ? 1440 : itemWidth;
     itemWidth = itemWidth > 1440 ? 1440 : itemWidth > 768 ? itemWidth : size[0];
     return itemWidth;
   };
@@ -103,7 +102,7 @@ export default function Banner() {
   }, 4000);
 
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center mb-5'>
       <div className='relative overflow-hidden '>
         <div className='relative select-none'>
           <BannerBtn direction='left' onClick={() => slideHandler(-1)} />

@@ -122,6 +122,10 @@ export default function AddProduct() {
     }
   }, [scrollY, success]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className='flex flex-col items-center justify-center max-w-3xl px-3 pb-10 mx-auto mt-9'>
       <Title text={'새로운 제품 등록'} />

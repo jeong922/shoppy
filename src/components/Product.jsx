@@ -20,6 +20,7 @@ export default function Product({ product }) {
           src={image || imageURL}
           alt=''
           className='object-cover w-full h-full'
+          loading='lazy'
         />
       </div>
 
