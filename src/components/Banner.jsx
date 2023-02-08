@@ -33,6 +33,7 @@ export default function Banner() {
   const transitionStyle = `transform ${transitionTime}ms ease 0s`;
   const [slideIndex, setSlideIndex] = useState(DATA_COUNT);
   const [size, setSize] = useState([0, 0]);
+  const [stop, setStop] = useState(4000);
   const [slideTransition, setTransition] = useState(transitionStyle);
 
   const replaceSlide = (index) => {
@@ -99,10 +100,14 @@ export default function Banner() {
 
   useInterval(() => {
     slideHandler(1);
-  }, 4000);
+  }, stop);
 
   return (
-    <div className='flex justify-center mb-5'>
+    <div
+      className='flex justify-center mb-5'
+      onMouseEnter={() => setStop(null)}
+      onMouseLeave={() => setStop(4000)}
+    >
       <div className='relative overflow-hidden '>
         <div className='relative select-none'>
           <BannerBtn direction='left' onClick={() => slideHandler(-1)} />

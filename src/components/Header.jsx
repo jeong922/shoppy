@@ -43,8 +43,6 @@ export default function Header() {
     });
   }, []);
 
-  console.log(show);
-
   return (
     <header className='fixed flex items-center w-full h-[4.5rem] px-6 bg-white border-b border-b-neutral-200 z-20'>
       <Link
