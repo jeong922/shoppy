@@ -139,6 +139,13 @@ export default function Header() {
               </li>
             )}
             <li className={USER_MENU_STYLE}>
+              <Link to='/profile'>
+                <div>
+                  <span>회원 정보</span>
+                </div>
+              </Link>
+            </li>
+            <li className={USER_MENU_STYLE}>
               <div onClick={handleLogout}>
                 <span>로그아웃</span>
               </div>
