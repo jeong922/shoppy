@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Title from '../components/ui/Title';
 import { FaUserCircle } from 'react-icons/fa';
+import Button from '../components/ui/Button';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-const LABEL_STYLES = 'inline-block w-20';
-const INPUT_STYLES = 'p-3 mb-3 border rounded-md border-neutral-200';
+const SPAN_STYLES = 'inline-block w-28';
 export default function Profile() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [file, setFile] = useState('');
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -14,50 +16,44 @@ export default function Profile() {
   return (
     <div className='flex flex-col items-center justify-center max-w-3xl px-3 pb-10 mx-auto mt-9'>
       <Title text={'회원정보'} />
-      <form className='flex justify-center w-full'>
+      <div className='flex justify-center w-full'>
         <section className='flex flex-col items-center justify-center mr-5'>
-          <div className='w-32 h-32'>
-            <FaUserCircle className='w-full h-full fill-neutral-400' />
-          </div>
-          {/* {file && (
-            <img
-              className='bg-neutral-500 w-200'
-              src={URL.createObjectURL(file)}
-              alt='local file'
-            />
-          )} */}
-          <div className='mt-3'>
-            <label
-              htmlFor='file'
-              className='p-2 px-3 text-sm text-white bg-black cursor-pointer hover:opacity-70'
-            >
-              이미지 선택
-            </label>
-            {file && <span className='ml-2 text-sm'>{file.name}</span>}
-          </div>
+          {user && user.photoURL ? (
+            <div className='w-32 h-32 overflow-hidden rounded-full'>
+              <img src={user.photoURL} alt='' className='w-full h-full' />
+            </div>
+          ) : (
+            <div className='w-32 h-32'>
+              <FaUserCircle className='w-full h-full fill-neutral-400' />
+            </div>
+          )}
         </section>
 
-        <section className='flex flex-col'>
+        <section className='flex flex-col justify-center'>
           <div>
-            <label className={LABEL_STYLES} htmlFor='name'>
-              이름
-            </label>
-            <input className={INPUT_STYLES} id='name' type='text' />
+            <span className={SPAN_STYLES}>이름</span>
+            <span>{user && user.displayName}</span>
           </div>
           <div>
-            <label className={LABEL_STYLES} htmlFor='email'>
-              이메일
-            </label>
-            <input className={INPUT_STYLES} id='email' type='email' />
+            <span className={SPAN_STYLES}>이메일</span>
+            <span>{user && user.email}</span>
           </div>
+
           <div>
-            <label className={LABEL_STYLES} htmlFor='password'>
-              비밀번호
-            </label>
-            <input className={INPUT_STYLES} id='password' type='password' />
+            <div className='text-center text-white bg-black hover:opacity-70'>
+              <Button
+                onClick={() => navigate('/editProfile')}
+                text={'회원 정보 수정'}
+              />
+            </div>
           </div>
         </section>
-      </form>
+      </div>
+      <div className='flex justify-end w-full'>
+        <div className='text-center text-white bg-black hover:opacity-70 mt-36'>
+          <Button text={'회원 탈퇴'} />
+        </div>
+      </div>
     </div>
   );
 }

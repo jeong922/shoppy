@@ -14,6 +14,7 @@ import AddProduct from './pages/AddProduct';
 import ProtectedPath from './pages/ProtectedPath';
 import Join from './pages/Join';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,22 @@ const router = createBrowserRouter([
       { path: 'women', element: <Products /> },
       { path: 'men', element: <Products /> },
       { path: 'acc-shoes', element: <Products /> },
-      { path: 'profile', element: <Profile /> },
+      {
+        path: 'profile',
+        element: (
+          <ProtectedPath>
+            <Profile />
+          </ProtectedPath>
+        ),
+      },
+      {
+        path: 'editProfile',
+        element: (
+          <ProtectedPath>
+            <EditProfile />
+          </ProtectedPath>
+        ),
+      },
     ],
   },
 ]);
