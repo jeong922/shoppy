@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function UserForm({ title, onValid }) {
+export default function UserForm({ title, onValid, isName }) {
   const [invalidEmail, setInvalidEmail] = useState(null);
   const [invalidPassword, setInvalidPassword] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -28,6 +28,14 @@ export default function UserForm({ title, onValid }) {
         onSubmit={handleSubmit(onValid, onInvalid)}
         className='flex flex-col m-6 mb-3'
       >
+        {isName && (
+          <input
+            {...register('name', { required: '이름을 입력해 주세요.' })}
+            className='p-2 px-3 mb-3 border border-neutral-400'
+            type='text'
+            placeholder='이름'
+          />
+        )}
         <input
           {...register('email', { required: '이메일을 입력해 주세요.' })}
           className='p-2 px-3 mb-3 border border-neutral-400'

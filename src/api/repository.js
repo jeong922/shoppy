@@ -7,6 +7,23 @@ export default class Repository {
     this.db = getDatabase(app);
   }
 
+  updateProfile(uid, userInfo, imageURL) {
+    console.log('repo: ', userInfo, imageURL);
+    return set(ref(this.db, `profile/${uid}`), {
+      ...userInfo,
+      name: userInfo.name,
+      email: userInfo.email,
+      imageURL,
+    });
+  }
+
+  async getUserInfo(uid) {
+    return get(ref(this.db, `profile/${uid}`)).then((snapshot) => {
+      const data = snapshot.val() || {};
+      return data;
+    });
+  }
+
   addNewProduct(product, imageURL) {
     const id = uuid();
     return set(ref(this.db, `products/${id}`), {

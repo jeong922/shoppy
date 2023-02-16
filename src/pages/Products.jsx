@@ -36,6 +36,8 @@ export default function ProductsList() {
     return pageName;
   };
 
+  console.log(products);
+
   return (
     <>
       {isLoading && <Loading />}

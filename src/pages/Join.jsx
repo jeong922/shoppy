@@ -35,7 +35,7 @@ export default function Join() {
   return (
     <main>
       <section className='flex flex-col items-center mt-40'>
-        <UserForm title={'회원가입'} onValid={onValid} />
+        <UserForm title={'회원가입'} onValid={onValid} isName={true} />
         {error && <span className='mb-2 text-sm text-red-600'>{error}</span>}
       </section>
     </main>

@@ -4,15 +4,24 @@ import { FaUserCircle } from 'react-icons/fa';
 import Button from '../components/ui/Button';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import useUserInfo from '../hooks/useUserInfo';
 
-const SPAN_STYLES = 'inline-block w-28';
+const INPUT_STYLES =
+  'p-2 mb-3 border rounded-md border-neutral-200 w-60 outline-none';
+const LABEL_STYLES = 'inline-block w-28';
 export default function Profile() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const {
+    userInfoQuery: { isLoading, data: userInfo },
+  } = useUserInfo();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  console.log(userInfo);
+
   return (
     <div className='flex flex-col items-center justify-center max-w-3xl px-3 pb-10 mx-auto mt-9'>
       <Title text={'회원정보'} />
@@ -31,12 +40,29 @@ export default function Profile() {
 
         <section className='flex flex-col justify-center'>
           <div>
-            <span className={SPAN_STYLES}>이름</span>
-            <span>{user && user.displayName}</span>
+            <label className={LABEL_STYLES} htmlFor='name'>
+              이름
+            </label>
+            <input
+              className={INPUT_STYLES}
+              type='text'
+              id='name'
+              value={user.displayName}
+              name='name'
+              readOnly
+            />
           </div>
           <div>
-            <span className={SPAN_STYLES}>이메일</span>
-            <span>{user && user.email}</span>
+            <label className={LABEL_STYLES} htmlFor='email'>
+              이메일
+            </label>
+            <input
+              className={INPUT_STYLES}
+              type='email'
+              id='email'
+              value={user.email}
+              readOnly
+            />
           </div>
 
           <div>
@@ -48,11 +74,6 @@ export default function Profile() {
             </div>
           </div>
         </section>
-      </div>
-      <div className='flex justify-end w-full'>
-        <div className='text-center text-white bg-black hover:opacity-70 mt-36'>
-          <Button text={'회원 탈퇴'} />
-        </div>
       </div>
     </div>
   );

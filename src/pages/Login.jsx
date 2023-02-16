@@ -46,7 +46,7 @@ export default function Login() {
   return (
     <main className='w-full h-screen'>
       <section className='flex flex-col items-center mt-40'>
-        <UserForm title={'로그인'} onValid={onValid} />
+        <UserForm title={'로그인'} onValid={onValid} isName={false} />
         {error && <span className='mb-2 text-sm text-red-600'>{error}</span>}
         <span
           onClick={() => navigate('/join')}
